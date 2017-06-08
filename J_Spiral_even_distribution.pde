@@ -6,6 +6,7 @@ PVector[] points;
 float innerBoundary = 100;
 float outerBoundary = 1000;
 RShape mySpiral;
+RShape cleanSpiral;
 RShape myLimits;
 
 //////////////////EXPORTS///////////////////
@@ -31,7 +32,7 @@ void setup(){
   mySpiral = new RShape();
   points = getTheodorus(totalSegments,stepLength);
   theodorusSpiralInit(points, innerBoundary, outerBoundary);
-  mySpiral = removeOverlaps(mySpiral);
+  cleanSpiral = removeOverlaps(mySpiral);
   mySpiral.translate(width/2, height/2);
 
 }
@@ -45,7 +46,8 @@ void draw(){
   //////////////////EXPORTS///////////////////
   
   background(155);
-  mySpiral.draw();
+  //mySpiral.draw();
+  cleanSpiral.draw();
   myLimits.draw();
   //drawAxis();
 
@@ -73,7 +75,7 @@ RShape removeOverlaps(RShape spiral){
   for(int i =0; i < spiral.children.length-1; i++){
     RShape shapeToCut = spiral.children[i];
     RShape cuttingShape = spiral.children[i+1];
-    RShape cutShape = RG.intersection(shapeToCut,cuttingShape);
+    RShape cutShape = RG.diff(shapeToCut,cuttingShape);
     cleanSpiral.addChild(cutShape);
   }
   return cleanSpiral;
