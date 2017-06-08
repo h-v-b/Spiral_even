@@ -31,6 +31,7 @@ void setup(){
   mySpiral = new RShape();
   points = getTheodorus(totalSegments,stepLength);
   theodorusSpiralInit(points, innerBoundary, outerBoundary);
+  mySpiral = removeOverlaps(mySpiral);
   mySpiral.translate(width/2, height/2);
 
 }
@@ -66,6 +67,17 @@ void draw(){
   //////////////////EXPORTS///////////////////
 }
 
+
+RShape removeOverlaps(RShape spiral){
+  RShape cleanSpiral = new RShape();
+  for(int i =0; i < spiral.children.length-1; i++){
+    RShape shapeToCut = spiral.children[i];
+    RShape cuttingShape = spiral.children[i+1];
+    RShape cutShape = RG.intersection(shapeToCut,cuttingShape);
+    cleanSpiral.addChild(cutShape);
+  }
+  return cleanSpiral;
+}
 
 void drawAxis(){
   strokeWeight(1);
