@@ -39,7 +39,6 @@ void draw(){
   background(155);
   
   drawAxis();
-  ellipseMode(CENTER);
   drawBoundaries(innerBoundary, outerBoundary);
   mySpiral.draw();
 
