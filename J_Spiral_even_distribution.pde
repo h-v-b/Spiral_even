@@ -6,6 +6,7 @@ PVector[] points;
 float innerBoundary = 100;
 float outerBoundary = 1000;
 RShape mySpiral;
+RShape myLimits;
 
 //////////////////EXPORTS///////////////////
 import processing.dxf.*;
@@ -22,10 +23,16 @@ void setup(){
   
   RG.init(this);
   
+  myLimits = new RShape();
+  initBoundaries(innerBoundary, outerBoundary);
+  myLimits.translate(width/2, height/2);
+
+  
   mySpiral = new RShape();
   points = getTheodorus(totalSegments,stepLength);
   theodorusSpiralInit(points, innerBoundary, outerBoundary);
-  mySpiral.centerIn(g);
+  mySpiral.translate(width/2, height/2);
+
 }
 
 void draw(){
@@ -37,10 +44,9 @@ void draw(){
   //////////////////EXPORTS///////////////////
   
   background(155);
-  
-  drawAxis();
-  drawBoundaries(innerBoundary, outerBoundary);
   mySpiral.draw();
+  myLimits.draw();
+  //drawAxis();
 
   //////////////////EXPORTS///////////////////
   if (savePDF) {
@@ -69,11 +75,11 @@ void drawAxis(){
 }
 
 
-void drawBoundaries(float inner, float outer){
-  strokeWeight(3);
-  stroke(255,0,0);
-  noFill();
-  ellipseMode(CENTER);
-  ellipse( width/2, height/2, outer, outer);
-  ellipse(width/2, height/2, inner, inner);
+void initBoundaries(float inner, float outer){
+
+  myLimits.addChild(RShape.createCircle(0, 0, inner));
+  myLimits.addChild(RShape.createCircle(0, 0, outer));
+  myLimits.setAlpha(0);
+  myLimits.setStroke(2);
+  myLimits.setStrokeWeight(2);  
 }
