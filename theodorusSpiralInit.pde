@@ -1,5 +1,8 @@
 void theodorusSpiralInit(PVector[] points, float innerBoundary, float outerBoundary) {
   int shapeCounter = 0;
+  color c1 = color(255,255,255);
+  color c2 = color(100,100,100);
+  color c3 = color (0,0,0);
   for (int i = 0; i < totalSegments; i++) {
     PVector pos = new PVector(points[i].x, points[i].y);
     float radius = stepLength*3;
@@ -16,12 +19,12 @@ void theodorusSpiralInit(PVector[] points, float innerBoundary, float outerBound
       //ellipse(pos.x, pos.y, radius, radius);
       RShape s = RShape.createCircle(pos.x, pos.y, radius);
       if (shapeCounter%2 == 0){
-        s.setFill(2000);
-        s.setStroke(5);
+        s.setFill(c1);
+        s.setStroke(c3);
       }
       else{
-        s.setFill(0);
-        s.setStroke(500);
+        s.setFill(c2);
+        s.setStroke(c3);
       }
       mySpiral.addChild(s);
       shapeCounter ++;
