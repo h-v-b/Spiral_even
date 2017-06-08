@@ -1,9 +1,11 @@
+import geomerative.*;
 
 int totalSegments = 1200; // length of the spiral
 int stepLength = 15;
 PVector[] points;
 float innerBoundary = 100;
 float outerBoundary = 1000;
+RShape mySpiral;
 
 //////////////////EXPORTS///////////////////
 import processing.dxf.*;
@@ -17,26 +19,30 @@ String cadSoftware, ext;
 void setup(){
   size(1000,1000);
   smooth();
-  //colorMode(HSB,255,100,100);
-  ellipseMode(CENTER);
-  stroke(0);
-  //println("move cursor vertically");
+  
+  RG.init(this);
+  
+  mySpiral = new RShape();
+  points = getTheodorus(totalSegments,stepLength);
+  theodorusSpiralInit(points, innerBoundary, outerBoundary);
+  mySpiral.centerIn(g);
 }
+
 void draw(){
-  background(155);
+
   //////////////////EXPORTS///////////////////
   if (record) beginRaw("superCAD."+cadSoftware, timestamp()+"."+ext);
   if (saveDXF) beginRaw(DXF, timestamp()+".dxf");
   if (savePDF) beginRecord(PDF, timestamp()+".pdf");
   //////////////////EXPORTS///////////////////
   
+  background(155);
   
   drawAxis();
   ellipseMode(CENTER);
-  points = getTheodorus(totalSegments,stepLength);
-  drawTheodorusSpiral(points, innerBoundary, outerBoundary);
   drawBoundaries(innerBoundary, outerBoundary);
-  
+  mySpiral.draw();
+
   //////////////////EXPORTS///////////////////
   if (savePDF) {
     savePDF = false;
