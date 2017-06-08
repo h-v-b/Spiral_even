@@ -1,11 +1,11 @@
-void theodorusSpiralInit(PVector[] points, float innerBoundary, float outerBoundary) {
+void theodorusSpiralInit(PVector[] points, float innerBoundary, float outerBoundary, float radiusMult) {
   int shapeCounter = 0;
   color c1 = color(255,255,255);
   color c2 = color(100,100,100);
   color c3 = color (0,0,0);
   for (int i = 0; i < totalSegments; i++) {
     PVector pos = new PVector(points[i].x, points[i].y);
-    float radius = stepLength*3.5;
+    float radius = stepLength*radiusMult;
     // adjust size to innerBoundary
     float distanceToCenter = dist(pos.x, pos.y, 0, 0);
     if (abs(distanceToCenter) < innerBoundary/2)

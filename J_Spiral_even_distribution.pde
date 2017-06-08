@@ -4,6 +4,7 @@ ControlP5 cp5;
 // Spiral Controls
 int totalSegments = 120; // length of the spiral
 int stepLength = 60;
+float radiusMult = 1;
 PVector[] points;
 float innerBoundary = 100;
 float outerBoundary = 1000;
@@ -35,15 +36,6 @@ void setup(){
   initBoundaries(innerBoundary, outerBoundary);
   myLimits.translate(width/2, height/2);
 
-  
-  mySpiral = new RShape();
-  points = getTheodorus(totalSegments,stepLength);
-  theodorusSpiralInit(points, innerBoundary, outerBoundary);
-  cleanSpiral = removeOverlaps(mySpiral);
-  mySpiral.translate(width/2, height/2);
-  cleanSpiral.translate(width/2, height/2);
-
-
 }
 
 void draw(){
@@ -53,6 +45,13 @@ void draw(){
   if (saveDXF) beginRaw(DXF, timestamp()+".dxf");
   if (savePDF) beginRecord(PDF, timestamp()+".pdf");
   //////////////////EXPORTS///////////////////
+  
+  mySpiral = new RShape();
+  points = getTheodorus(totalSegments,stepLength);
+  theodorusSpiralInit(points, innerBoundary, outerBoundary, radiusMult);
+  cleanSpiral = removeOverlaps(mySpiral);
+  mySpiral.translate(width/2, height/2);
+  cleanSpiral.translate(width/2, height/2);
   
   background(155);
   //mySpiral.draw();
