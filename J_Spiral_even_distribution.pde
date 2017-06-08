@@ -27,7 +27,7 @@ boolean record = false;
 String cadSoftware, ext;
 
 void setup() {
-  size(1000, 1000);
+  size(1100, 1100);
   smooth();
 
   cp5 = new ControlP5(this);
@@ -61,11 +61,11 @@ void draw() {
   mySpiral.translate(width/2, height/2);
   cleanSpiral.translate(width/2, height/2);
 
-  background(155);
+  background(255);
   //mySpiral.draw();
   cleanSpiral.draw();
   myLimits.draw();
-  //drawAxis();
+  drawAxis();
 
   //////////////////EXPORTS///////////////////
   if (savePDF) {
@@ -105,9 +105,10 @@ void drawAxis() {
 
 
 void initBoundaries(float inner, float outer) {
+  color c = color(0,0,0);
   myLimits.addChild(RShape.createCircle(0, 0, inner));
   myLimits.addChild(RShape.createCircle(0, 0, outer));
   myLimits.setAlpha(0);
-  myLimits.setStroke(2);
+  myLimits.setStroke(c);
   myLimits.setStrokeWeight(2);
 }
