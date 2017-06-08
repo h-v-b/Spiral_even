@@ -48,7 +48,7 @@ void draw(){
   
   mySpiral = new RShape();
   points = getTheodorus(totalSegments,stepLength);
-  theodorusSpiralInit(points, innerBoundary, outerBoundary, radiusMult);
+  drawShapesOnPoints(points, innerBoundary, outerBoundary, radiusMult);
   cleanSpiral = removeOverlaps(mySpiral);
   mySpiral.translate(width/2, height/2);
   cleanSpiral.translate(width/2, height/2);

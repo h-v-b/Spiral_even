@@ -1,4 +1,4 @@
-void theodorusSpiralInit(PVector[] points, float innerBoundary, float outerBoundary, float radiusMult) {
+void drawShapesOnPoints(PVector[] points, float innerBoundary, float outerBoundary, float radiusMult) {
   int shapeCounter = 0;
   color c1 = color(255,255,255);
   color c2 = color(100,100,100);
