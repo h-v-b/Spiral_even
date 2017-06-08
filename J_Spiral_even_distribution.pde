@@ -1,10 +1,14 @@
-import geomerative.*;
+import controlP5.*;
+ControlP5 cp5;
 
-int totalSegments = 1200; // length of the spiral
-int stepLength = 15;
+// Spiral Controls
+int totalSegments = 120; // length of the spiral
+int stepLength = 60;
 PVector[] points;
 float innerBoundary = 100;
 float outerBoundary = 1000;
+
+import geomerative.*;
 RShape mySpiral;
 RShape cleanSpiral;
 RShape myLimits;
@@ -22,6 +26,9 @@ void setup(){
   size(1000,1000);
   smooth();
   
+  cp5 = new ControlP5(this);
+  initGUI(cp5);
+  
   RG.init(this);
   
   myLimits = new RShape();
@@ -34,6 +41,8 @@ void setup(){
   theodorusSpiralInit(points, innerBoundary, outerBoundary);
   cleanSpiral = removeOverlaps(mySpiral);
   mySpiral.translate(width/2, height/2);
+  cleanSpiral.translate(width/2, height/2);
+
 
 }
 
@@ -69,12 +78,11 @@ void draw(){
   //////////////////EXPORTS///////////////////
 }
 
-
 RShape removeOverlaps(RShape spiral){
   RShape cleanSpiral = new RShape();
   for(int i =0; i < spiral.children.length-1; i++){
     RShape shapeToCut = spiral.children[i];
-    RShape cuttingShape = spiral.children[i+1];
+    RShape cuttingShape = spiral.children[i+1];      
     RShape cutShape = RG.diff(shapeToCut,cuttingShape);
     cleanSpiral.addChild(cutShape);
   }
@@ -90,7 +98,6 @@ void drawAxis(){
 
 
 void initBoundaries(float inner, float outer){
-
   myLimits.addChild(RShape.createCircle(0, 0, inner));
   myLimits.addChild(RShape.createCircle(0, 0, outer));
   myLimits.setAlpha(0);

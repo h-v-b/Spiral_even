@@ -8,16 +8,22 @@ void theodorusSpiralInit(PVector[] points, float innerBoundary, float outerBound
     float radius = stepLength*3.5;
     // adjust size to innerBoundary
     float distanceToCenter = dist(pos.x, pos.y, 0, 0);
+    if (abs(distanceToCenter) < innerBoundary/2)
+      continue;
     if (distanceToCenter-innerBoundary/2 < radius/2) {
       radius = 2*(distanceToCenter-innerBoundary/2);
     }
     if (abs(distanceToCenter-outerBoundary/2) < radius/2) {
       radius = 2*(outerBoundary/2-distanceToCenter);
-    } else
+    } 
+    if (abs(distanceToCenter) > outerBoundary/2)
+      break;
+    else
       radius = radius;
     if (radius >0) {
       //ellipse(pos.x, pos.y, radius, radius);
-      RShape s = RShape.createCircle(pos.x, pos.y, radius);
+      RShape s = RShape.createEllipse(pos.x, pos.y, radius, radius);
+      
       if (shapeCounter%2 == 0){
         s.setFill(c1);
         s.setStroke(c3);
