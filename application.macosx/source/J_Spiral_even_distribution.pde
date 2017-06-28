@@ -47,7 +47,7 @@ void draw() {
   //////////////////EXPORTS///////////////////
   if (record) beginRaw("superCAD."+cadSoftware, timestamp()+"."+ext);
   if (saveDXF) beginRaw(DXF, timestamp()+".dxf");
-  if (savePDF) beginRecord(PDF, timestamp()+".pdf");
+    if (savePDF) beginRecord(PDF, timestamp()+".pdf");
   //////////////////EXPORTS///////////////////
 
   // generate point cloud to draw ellipses
@@ -56,7 +56,10 @@ void draw() {
 
   // simple spiral
   points = getPointsOnSpiral(amountOfPoints, radiansStep, thetaStep);
-
+  myLimits = new RShape();
+  initBoundaries(innerBoundary, outerBoundary);
+  myLimits.translate(width/2, height/2);
+  
   mySpiral = new RShape();
   drawShapesOnPoints(points, innerBoundary, outerBoundary, radiusMult, minSize, maxSize);
   mySpiral.translate(width/2, height/2);
