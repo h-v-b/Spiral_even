@@ -8,7 +8,7 @@ PVector[] getPointsOnSpiral(int amountOfPoints, float radiansStep, float thetaSt
   for (int i = 0; i < amountOfPoints; i++) {
     PVector p = new PVector(radians*sin(theta), radians*cos(theta));
     result[i] = p;
-    radians += radiansStep;
+    radians += stepLength;
     theta += thetaStep;
   }
   return result;

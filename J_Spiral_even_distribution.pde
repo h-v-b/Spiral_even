@@ -11,6 +11,8 @@ float outerBoundary = 1000;
 
 float radiansStep=0.4;
 float thetaStep = 0.5;
+float minSize =  2.5;
+float maxSize = 100;
 
 import geomerative.*;
 RShape mySpiral;
@@ -56,14 +58,17 @@ void draw() {
   points = getPointsOnSpiral(amountOfPoints, radiansStep, thetaStep);
 
   mySpiral = new RShape();
-  drawShapesOnPoints(points, innerBoundary, outerBoundary, radiusMult);
-  cleanSpiral = removeOverlaps(mySpiral);
+  drawShapesOnPoints(points, innerBoundary, outerBoundary, radiusMult, minSize, maxSize);
   mySpiral.translate(width/2, height/2);
-  cleanSpiral.translate(width/2, height/2);
 
-  background(255);
-  //mySpiral.draw();
-  cleanSpiral.draw();
+    if(record || saveDXF || savePDF)
+  {
+    cleanSpiral = removeOverlaps(mySpiral);
+    cleanSpiral.translate(width/2, height/2);
+  }
+
+  background(55);
+  mySpiral.draw();
   myLimits.draw();
   drawAxis();
 
@@ -108,7 +113,7 @@ void initBoundaries(float inner, float outer) {
   color c = color(0,0,0);
   myLimits.addChild(RShape.createCircle(0, 0, inner));
   myLimits.addChild(RShape.createCircle(0, 0, outer));
-  myLimits.setAlpha(0);
+  myLimits.setAlpha(100);
   myLimits.setStroke(c);
   myLimits.setStrokeWeight(2);
 }
